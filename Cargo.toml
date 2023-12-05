@@ -1,0 +1,12 @@
+[package]
+name = "celestial-hub-sextant"
+version = "0.1.0"
+edition = "2021"
+description = "A simple MIPS compiler"
+license-file = "LICENSE"
+homepage = "https://explore-celestial-with.me"
+repository = "https://github.com/celestial-hub/sextant"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
