@@ -10,7 +10,18 @@ repository = "https://github.com/celestial-hub/sextant"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.75"
+axum = { version = "0", features = ["ws"] }
+axum-extra = { version = "0", features = ["typed-header"] }
+tokio = { version = "1.0", features = ["full"] }
+tokio-tungstenite = "0.21"
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5.0", features = ["fs", "trace"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1"
 # celestial-hub-astrolabe = "0.1.0"
 celestial-hub-astrolabe = { path = "../astrolabe" }
 phf = { version = "0.11.2", features = ["macros"] }
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1"

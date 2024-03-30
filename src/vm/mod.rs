@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use serde::{Deserialize, Serialize};
+
 pub mod eval;
 
 #[derive(Default)]
@@ -9,6 +11,24 @@ pub struct VM {
   pub memory: Vec<u8>,
   pub stack: Vec<u8>,
   pub data_variables: HashMap<String, usize>,
+  pub statements: Vec<celestial_hub_astrolabe::ast::Statement>,
+  pub io_interruption: Option<IOInterruption>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(tag = "type", content = "payload")]
+#[serde(rename_all = "camelCase")]
+pub enum IOInterruption {
+  Input(InputRequest),
+  Output(String),
+  Halt,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub enum InputRequest {
+  String,
+  Number,
 }
 
 pub struct InitVMArgs {
