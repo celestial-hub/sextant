@@ -18,6 +18,7 @@ pub struct StatusUpdateMessage {
   pub registers: Vec<u32>,
   pub pc: usize,
   pub io_interruption: Option<vm::IOInterruption>,
+  pub memory_patch: Option<Vec<u8>>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

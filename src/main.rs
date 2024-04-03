@@ -27,7 +27,7 @@ async fn main() -> anyhow::Result<()> {
     .init();
 
   let app = Router::new().route("/ws", get(ws_handler));
-  let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+  let listener = tokio::net::TcpListener::bind("127.0.0.1:9123")
     .await
     .context("failed to bind to address")?;
 

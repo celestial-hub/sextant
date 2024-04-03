@@ -13,6 +13,7 @@ pub struct VM {
   pub data_variables: HashMap<String, usize>,
   pub statements: Vec<celestial_hub_astrolabe::ast::Statement>,
   pub io_interruption: Option<IOInterruption>,
+  pub memory_patch: Option<Vec<u8>>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

@@ -139,8 +139,6 @@ impl VM {
   }
 
   pub fn handle_input(&mut self, input: String) -> anyhow::Result<()> {
-    tracing::debug!("Handling input: {}", input);
-
     if self.io_interruption.is_none() {
       anyhow::bail!("No input request to handle");
     }
@@ -164,9 +162,7 @@ impl VM {
       _ => anyhow::bail!("Invalid input request"),
     }
 
-    tracing::debug!("Input handled successfully");
     self.io_interruption = None;
-    // self.pc += 1;
     Ok(())
   }
 
@@ -178,7 +174,7 @@ impl VM {
     statements
       .iter()
       .enumerate()
-      .find(|(_, statement)| {
+      .find(|(i, statement)| {
         if let Statement::Label(label) = statement {
           if label == entrypoint {
             return true;
@@ -220,9 +216,12 @@ impl VM {
   pub fn step(&mut self) -> anyhow::Result<()> {
     let statement = self.statements[self.pc].clone();
     self.pc += 1;
-
     if let Statement::Instruction(instruction) = statement {
-      tracing::debug!("Executing instruction: {:#?}", instruction);
+      tracing::debug!(
+        "[{pc}] Executing instruction: {:#?}",
+        instruction,
+        pc = self.pc,
+      );
       self.eval_instruction(&instruction)?;
     }
 
@@ -244,7 +243,7 @@ impl VM {
       registers: self.registers.to_vec(),
       pc: self.pc,
       io_interruption: self.io_interruption.clone(),
-      // memory: self.memory.clone(),
+      memory_patch: self.memory_patch.clone(),
     }
   }
 }
